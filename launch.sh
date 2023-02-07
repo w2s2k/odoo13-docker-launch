@@ -77,6 +77,13 @@ main() {
     set -e
     pushd $WORKDIR > /dev/null
         echo "Download required files ..."
+        curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/Dockerfile -o "Dockerfile"
+        curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/docker-compose.yml -o "docker-compose.yml"
+        curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/.env.local -o ".env"
+        echo
+        echo "Launch Gravitee.io Access Management ..."
+        $dc_exec
+    popd > /dev/null
 }
 
 # init port from input parameter
