@@ -3,7 +3,7 @@ volumes:
   data-pgadmin:
 services:
   db:
-    container_name: odoo13-postgres
+    container_name: db-odoo
     image: postgres:11.6
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -15,7 +15,7 @@ services:
         - ./postgresql:/var/lib/postgresql/data
     restart: always
   odoo13-webserver:
-    container_name: odoo13-webserver
+    container_name: server-odoo
     image: w2s2k/odoo13-multiarch:1.0
     depends_on:
       - db
@@ -30,7 +30,7 @@ services:
     restart: always
 
   pgadmin:
-    container_name: pgadmin
+    container_name: pgadmin-odoo
     image: dpage/pgadmin4:latest
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
