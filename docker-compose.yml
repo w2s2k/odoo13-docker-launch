@@ -17,7 +17,7 @@ services:
     restart: always
   odoo13-webserver:
     container_name: server-odoo
-    image: w2s2k/odoo13-multiarch:1.0
+    image: odoo:13
     depends_on:
       - db
     ports:
