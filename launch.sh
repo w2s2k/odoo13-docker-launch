@@ -77,11 +77,15 @@ main() {
     set -e
     pushd $WORKDIR > /dev/null
         echo "Download required files ..."
+        mkdir -p etc
         curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/docker-compose.yml -o "docker-compose.yml"
         curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/.env.local -o ".env"
+        cd etc && { curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/etc/odoo.conf -o "odoo.conf" ; cd -; }
+        awk -v ADMIN_PASSWORD="$ADMIN_PASSWORD" '{sub("admin_passwd_value",ADMIN_PASSWORD)} {print}' ./etc/odoo.conf > temp.txt && mv temp.txt ./etc/odoo.conf
         echo
         echo "Launch Odoo 13 on port $ODOO_PORT ..."
         echo "Launch Postgres 11.6 on port $POSTGRES_PORT ..."
+        echo "Odoo config file with admin password: "
         $dc_exec
     popd > /dev/null
 }
@@ -97,4 +101,11 @@ if [ "$2" != "" ]; then
 else
     export POSTGRES_PORT=5432
 fi
+
+if [ "$3" != "" ]; then
+    ADMIN_PASSWORD=$3
+else
+    ADMIN_PASSWORD=$(openssl rand -hex 20);
+fi
+
 main
