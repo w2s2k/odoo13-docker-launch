@@ -80,16 +80,22 @@ main() {
         curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/docker-compose.yml -o "docker-compose.yml"
         curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/.env.local -o ".env"
         echo
-        echo "Launch Gravitee.io Access Management ..."
+        echo "Launch Odoo 13 ..."
         $dc_exec
     popd > /dev/null
 }
 
 # init port from input parameter
 if [ "$1" != "" ]; then
-    export NGINX_PORT=$1
+    export ODOO_PORT=$1
 else
-    export NGINX_PORT=80
+    export ODOO_PORT=8069
 fi
+if [ "$2" != "" ]; then
+    export PGADMIN_PORT=$2
+else
+    export PGADMIN_PORT=5432
+fi
+
 
 main
