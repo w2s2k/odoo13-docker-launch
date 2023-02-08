@@ -85,7 +85,7 @@ main() {
         echo
         echo "Launch Odoo 13 on port $ODOO_PORT ..."
         echo "Launch Postgres 11.6 on port $POSTGRES_PORT ..."
-        echo "Odoo config file with admin password: "
+        echo "Odoo config file with admin password: $ADMIN_PASSWORD"
         $dc_exec
     popd > /dev/null
 }
