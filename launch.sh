@@ -80,7 +80,8 @@ main() {
         curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/docker-compose.yml -o "docker-compose.yml"
         curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/.env.local -o ".env"
         echo
-        echo "Launch Odoo 13 ..."
+        echo "Launch Odoo 13 on port $ODOO_PORT ..."
+        echo "Launch Postgres 11.6 on port $POSTGRES_PORT ..."
         $dc_exec
     popd > /dev/null
 }
@@ -92,10 +93,8 @@ else
     export ODOO_PORT=8069
 fi
 if [ "$2" != "" ]; then
-    export PGADMIN_PORT=$2
+    export POSTGRES_PORT=$2
 else
-    export PGADMIN_PORT=5432
+    export POSTGRES_PORT=5432
 fi
-
-
 main
