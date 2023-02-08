@@ -83,8 +83,7 @@ main() {
         cd etc && { curl -L https://raw.githubusercontent.com/w2s2k/odoo13-docker-launch/main/etc/odoo.conf -o "odoo.conf" ; cd -; }
         awk -v ADMIN_PASSWORD="$ADMIN_PASSWORD" '{sub("admin_passwd_value",ADMIN_PASSWORD)} {print}' ./etc/odoo.conf > temp.txt && mv temp.txt ./etc/odoo.conf
         awk -v POSTGRES_PORT="$POSTGRES_PORT" '{sub("db_port_value",POSTGRES_PORT)} {print}' ./etc/odoo.conf > temp.txt && mv temp.txt ./etc/odoo.conf
-        awk -v POSTGRES_PORT="$POSTGRES_PORT" '{sub("postgres_port_value",POSTGRES_PORT)} {print}' ./env > temp.txt && mv temp.txt ./env
-        awk -v ODOO_PORT="$ODOO_PORT" '{sub("odoo_port_value",ODOO_PORT)} {print}' ./env > temp.txt && mv temp.txt ./env
+        envsubst < .env
         echo
         echo "Launch Odoo 13 on port $ODOO_PORT ..."
         echo "Launch Postgres 11.6 on port $POSTGRES_PORT ..."
