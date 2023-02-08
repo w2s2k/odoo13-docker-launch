@@ -28,22 +28,6 @@ services:
       - ./etc:/etc/odoo
       - ./filestore:/var/lib/odoo/filestore
     restart: always
-
-  pgadmin:
-    container_name: pgadmin-odoo
-    image: dpage/pgadmin4:latest
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
-    volumes:
-        - ./postgresql:/var/lib/postgresql/data
-        - ./pgadmin:/var/lib/pgadmin/storage
-    depends_on:
-      - db
-    ports:
-      - "${PGADMIN_PORT}:80"
-    restart: unless-stopped
-
 networks:
     default:
         name: frontend
