@@ -1,6 +1,7 @@
 version: '2'
 volumes:
-  data-pgadmin:
+  odoo-db:
+  odoo-data:
 services:
   db:
     container_name: db-odoo
